@@ -1,7 +1,34 @@
 const ratingEls = document.querySelectorAll(".rating");
+const btnEl = document.getElementById("btn");
+const containerEl = document.getElementById("container");
+
+let selectedRating = "";
 
 ratingEls.forEach((ratingEl) => {
     ratingEl.addEventListener("click", (event) => {
-        console.log(event.target.innerText)
+        removeActive();
+        selectedRating = event.target.innerText || event.target.parentNode.innerText;
+        event.target.parentNode.classList.add("active");
     })
 });
+
+btnEl.addEventListener("click", (event) => { 
+    if (selectedRating !== "") {
+        containerEl.innerHTML = `
+        <strong>Thank you!</strong>
+        <br/>
+        <br>
+        <strong>Feedback: ${selectedRating}</strong>
+        <p>We will use your feedback to improve our customer support. </p>
+        `;
+    }
+    else {
+        alert("Please select a feedback");
+    }
+})
+
+function removeActive() {
+    ratingEls.forEach((ratingEl) => {
+        ratingEl.classList.remove("active");
+    })
+}
